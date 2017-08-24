@@ -1,0 +1,100 @@
+'use strict';
+
+var startsWith;
+if (typeof module === 'object' && module.exports) {
+  require('es5-shim');
+  require('es5-shim/es5-sham');
+  if (typeof JSON === 'undefined') {
+    JSON = {};
+  }
+  require('json3').runInContext(null, JSON);
+  require('es6-shim');
+  var es7 = require('es7-shim');
+  Object.keys(es7).forEach(function (key) {
+    var obj = es7[key];
+    if (typeof obj.shim === 'function') {
+      obj.shim();
+    }
+  });
+  startsWith = require('../../index.js');
+} else {
+  startsWith = returnExports;
+}
+
+describe('startsWith', function () {
+  it('is a function', function () {
+    expect(typeof startsWith).toBe('function');
+  });
+
+  it('should throw when target is null or undefined', function () {
+    expect(function () {
+      startsWith();
+    }).toThrow();
+
+    expect(function () {
+      startsWith(void 0);
+    }).toThrow();
+
+    expect(function () {
+      startsWith(null);
+    }).toThrow();
+  });
+
+  it('should be truthy on correct results', function () {
+    expect(startsWith('test', 'te')).toBe(true);
+    expect(startsWith('test', 'st')).toBe(false);
+    expect(startsWith('', '/')).toBe(false);
+    expect(startsWith('#', '/')).toBe(false);
+    expect(startsWith('##', '///')).toBe(false);
+
+    expect(startsWith('abc', 'abc')).toBe(true);
+    expect(startsWith('abcd', 'abc')).toBe(true);
+    expect(startsWith('abc', 'a')).toBe(true);
+    expect(startsWith('abc', 'abcd')).toBe(false);
+    expect(startsWith('abc', 'bcde')).toBe(false);
+    expect(startsWith('abc', 'b')).toBe(false);
+    expect(startsWith('abc', 'abc', 0)).toBe(true);
+    expect(startsWith('abc', 'bc', 0)).toBe(false);
+    expect(startsWith('abc', 'bc', 1)).toBe(true);
+    expect(startsWith('abc', 'c', 1)).toBe(false);
+    expect(startsWith('abc', 'abc', 1)).toBe(false);
+    expect(startsWith('abc', 'c', 2)).toBe(true);
+    expect(startsWith('abc', 'd', 2)).toBe(false);
+    expect(startsWith('abc', 'dcd', 2)).toBe(false);
+    expect(startsWith('abc', 'a', NaN)).toBe(true);
+    expect(startsWith('abc', 'b', NaN)).toBe(false);
+    expect(startsWith('abc', 'ab', -43)).toBe(true);
+    expect(startsWith('abc', 'ab', -Infinity)).toBe(true);
+    expect(startsWith('abc', 'bc', -42)).toBe(false);
+    expect(startsWith('abc', 'bc', -Infinity)).toBe(false);
+  });
+
+  it('should handle large positions', function () {
+    expect(startsWith('abc', 'a', 42)).toBe(false);
+    expect(startsWith('abc', 'a', Infinity)).toBe(false);
+  });
+
+  it('should coerce to a string', function () {
+    expect(startsWith('abcd', {
+      toString: function () {
+        return 'ab';
+      }
+    })).toBe(true);
+
+    expect(startsWith('abcd', {
+      toString: function () {
+        return 'foo';
+      }
+    })).toBe(false);
+  });
+
+  it('should not allow a regex', function () {
+    expect(function () {
+      return startsWith('abcd', /abc/);
+    }).toThrow();
+
+    expect(function () {
+      return startsWith('abcd', new RegExp('abc'));
+    }).toThrow();
+  });
+});
