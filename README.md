@@ -51,4 +51,10 @@ specified string, returning true or false as appropriate.
 **Example**  
 ```js
 var strinStartsWith = require('string-starts-with-x');
+
+var str = 'To be, or not to be, that is the question.';
+
+startsWith(str, 'To be'); // true
+startsWith(str, 'not to be'); // false
+startsWith(str, 'not to be', 10); // true
 ```
