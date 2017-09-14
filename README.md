@@ -23,7 +23,7 @@
 ## string-starts-with-x
 Determines whether a string begins with the characters of a specified string.
 
-**Version**: 1.0.0  
+**Version**: 1.1.0  
 **Author**: Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  

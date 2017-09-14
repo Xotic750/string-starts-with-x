@@ -1,6 +1,6 @@
 /**
  * @file Determines whether a string begins with the characters of a specified string.
- * @version 1.0.0
+ * @version 1.1.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -9,41 +9,47 @@
 
 'use strict';
 
-var startsWith = String.prototype.startsWith;
-var startsWithRejectsRegex;
-var startsWithHandlesInfinity;
+var nativeStartsWith = typeof String.prototype.startsWith === 'function' && String.prototype.startsWith;
 
-if (startsWith) {
-  try {
-    /* throws if spec-compliant */
-    startsWith.call('/a/', /a/);
-  } catch (ignore) {
-    startsWithRejectsRegex = true;
+var isWorking;
+if (nativeStartsWith) {
+  var attempt = require('attempt-x');
+  var res = attempt.call('/a/', nativeStartsWith, /a/);
+  isWorking = res.threw;
+
+  if (isWorking) {
+    res = attempt.call('abc', nativeStartsWith, 'a', Infinity);
+    isWorking = res.threw === false && res.value === false;
   }
 
-  try {
-    startsWithHandlesInfinity = startsWith.call('abc', 'a', Infinity) === false;
-  } catch (ignore) {
-    startsWithHandlesInfinity = false;
+  if (isWorking) {
+    res = attempt.call(123, nativeStartsWith, '1');
+    isWorking = res.threw === false && res.value === true;
+  }
+
+  if (isWorking) {
+    // eslint-disable-next-line no-useless-call
+    res = attempt.call(null, nativeStartsWith, 'n');
+    isWorking = res.threw;
   }
 }
 
 var $startsWith;
-if (startsWith && startsWithRejectsRegex && startsWithHandlesInfinity) {
+if (isWorking) {
   $startsWith = function _startsWith(string, searchString) {
     var args = [searchString];
     if (arguments.length > 2) {
       args[1] = arguments[2];
     }
 
-    return startsWith.apply(string, args);
+    return nativeStartsWith.apply(string, args);
   };
 } else {
   // Firefox (< 37?) and IE 11 TP have a noncompliant startsWith implementation
   var toInteger = require('to-integer-x');
   var requireObjectCoercible = require('require-object-coercible-x');
   var toStr = require('to-string-x');
-  var isRegExp = require('is-regex');
+  var isRegExp = require('is-regexp-x');
   $startsWith = function _startsWith(string, searchString) {
     var str = toStr(requireObjectCoercible(string));
     if (isRegExp(searchString)) {
@@ -51,12 +57,8 @@ if (startsWith && startsWithRejectsRegex && startsWithHandlesInfinity) {
     }
 
     var searchStr = toStr(searchString);
-    var position;
-    if (arguments.length > 2) {
-      position = arguments[2];
-    }
-
-    var start = Math.max(toInteger(position), 0);
+    var position = arguments.length > 2 ? toInteger(arguments[2]) : 0;
+    var start = position > 0 ? position : 0;
     return str.slice(start, start + searchStr.length) === searchStr;
   };
 }
