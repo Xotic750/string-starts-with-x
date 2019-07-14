@@ -7,14 +7,13 @@
  * @module string-starts-with-x
  */
 
-'use strict';
+const nativeStartsWith = typeof String.prototype.startsWith === 'function' && String.prototype.startsWith;
 
-var nativeStartsWith = typeof String.prototype.startsWith === 'function' && String.prototype.startsWith;
+let isWorking;
 
-var isWorking;
 if (nativeStartsWith) {
-  var attempt = require('attempt-x');
-  var res = attempt.call('/a/', nativeStartsWith, /a/);
+  const attempt = require('attempt-x');
+  let res = attempt.call('/a/', nativeStartsWith, /a/);
   isWorking = res.threw;
 
   if (isWorking) {
@@ -34,10 +33,12 @@ if (nativeStartsWith) {
   }
 }
 
-var $startsWith;
+let $startsWith;
+
 if (isWorking) {
   $startsWith = function _startsWith(string, searchString) {
-    var args = [searchString];
+    const args = [searchString];
+
     if (arguments.length > 2) {
       args[1] = arguments[2];
     }
@@ -46,19 +47,21 @@ if (isWorking) {
   };
 } else {
   // Firefox (< 37?) and IE 11 TP have a noncompliant startsWith implementation
-  var toInteger = require('to-integer-x');
-  var requireObjectCoercible = require('require-object-coercible-x');
-  var toStr = require('to-string-x');
-  var isRegExp = require('is-regexp-x');
+  const toInteger = require('to-integer-x');
+  const requireObjectCoercible = require('require-object-coercible-x');
+  const toStr = require('to-string-x');
+  const isRegExp = require('is-regexp-x');
   $startsWith = function _startsWith(string, searchString) {
-    var str = toStr(requireObjectCoercible(string));
+    const str = toStr(requireObjectCoercible(string));
+
     if (isRegExp(searchString)) {
       throw new TypeError('Cannot call method "startsWith" with a regex');
     }
 
-    var searchStr = toStr(searchString);
-    var position = arguments.length > 2 ? toInteger(arguments[2]) : 0;
-    var start = position > 0 ? position : 0;
+    const searchStr = toStr(searchString);
+    const position = arguments.length > 2 ? toInteger(arguments[2]) : 0;
+    const start = position > 0 ? position : 0;
+
     return str.slice(start, start + searchStr.length) === searchStr;
   };
 }

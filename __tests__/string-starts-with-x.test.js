@@ -1,17 +1,19 @@
-'use strict';
+let startsWith;
 
-var startsWith;
 if (typeof module === 'object' && module.exports) {
   require('es5-shim');
   require('es5-shim/es5-sham');
+
   if (typeof JSON === 'undefined') {
     JSON = {};
   }
+
   require('json3').runInContext(null, JSON);
   require('es6-shim');
-  var es7 = require('es7-shim');
-  Object.keys(es7).forEach(function (key) {
-    var obj = es7[key];
+  const es7 = require('es7-shim');
+  Object.keys(es7).forEach(function(key) {
+    const obj = es7[key];
+
     if (typeof obj.shim === 'function') {
       obj.shim();
     }
@@ -21,26 +23,26 @@ if (typeof module === 'object' && module.exports) {
   startsWith = returnExports;
 }
 
-describe('startsWith', function () {
-  it('is a function', function () {
+describe('startsWith', function() {
+  it('is a function', function() {
     expect(typeof startsWith).toBe('function');
   });
 
-  it('should throw when target is null or undefined', function () {
-    expect(function () {
+  it('should throw when target is null or undefined', function() {
+    expect(function() {
       startsWith();
     }).toThrow();
 
-    expect(function () {
+    expect(function() {
       startsWith(void 0);
     }).toThrow();
 
-    expect(function () {
+    expect(function() {
       startsWith(null);
     }).toThrow();
   });
 
-  it('should be truthy on correct results', function () {
+  it('should be truthy on correct results', function() {
     expect(startsWith('test', 'te')).toBe(true);
     expect(startsWith('test', 'st')).toBe(false);
     expect(startsWith('', '/')).toBe(false);
@@ -69,31 +71,35 @@ describe('startsWith', function () {
     expect(startsWith('abc', 'bc', -Infinity)).toBe(false);
   });
 
-  it('should handle large positions', function () {
+  it('should handle large positions', function() {
     expect(startsWith('abc', 'a', 42)).toBe(false);
     expect(startsWith('abc', 'a', Infinity)).toBe(false);
   });
 
-  it('should coerce to a string', function () {
-    expect(startsWith('abcd', {
-      toString: function () {
-        return 'ab';
-      }
-    })).toBe(true);
+  it('should coerce to a string', function() {
+    expect(
+      startsWith('abcd', {
+        toString() {
+          return 'ab';
+        },
+      }),
+    ).toBe(true);
 
-    expect(startsWith('abcd', {
-      toString: function () {
-        return 'foo';
-      }
-    })).toBe(false);
+    expect(
+      startsWith('abcd', {
+        toString() {
+          return 'foo';
+        },
+      }),
+    ).toBe(false);
   });
 
-  it('should not allow a regex', function () {
-    expect(function () {
+  it('should not allow a regex', function() {
+    expect(function() {
       return startsWith('abcd', /abc/);
     }).toThrow();
 
-    expect(function () {
+    expect(function() {
       return startsWith('abcd', new RegExp('abc'));
     }).toThrow();
   });
