@@ -52,7 +52,7 @@
     "attempt-x": "^2.0.2",
     "is-regexp-x": "^2.2.0",
     "require-object-coercible-x": "^2.0.4",
-    "to-integer-x": "^3.0.0",
+    "to-integer-x": "^4.0.0",
     "to-string-x": "^2.0.14"
   },
   "devDependencies": {
