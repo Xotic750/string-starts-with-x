@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "attempt-x": "^2.0.4",
-    "is-regexp-x": "^3.0.0",
+    "is-regexp-x": "^3.0.1",
     "require-object-coercible-x": "^2.0.6",
     "to-integer-x": "^4.0.8",
     "to-string-x": "^2.0.16"
