@@ -88,4 +88,4 @@ if (isWorking) {
  * startsWith(str, 'not to be'); // false
  * startsWith(str, 'not to be', 10); // true
  */
-module.exports = $startsWith;
+export default $startsWith;
