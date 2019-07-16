@@ -1,12 +1,3 @@
-/**
- * @file Determines whether a string begins with the characters of a specified string.
- * @version 1.1.0
- * @author Xotic750 <Xotic750@gmail.com>
- * @copyright  Xotic750
- * @license {@link <https://opensource.org/licenses/MIT> MIT}
- * @module string-starts-with-x
- */
-
 const nativeStartsWith = typeof String.prototype.startsWith === 'function' && String.prototype.startsWith;
 
 let isWorking;
@@ -79,13 +70,5 @@ if (isWorking) {
  *  searching for searchString; defaults to 0.
  * @returns {boolean} `true` if the given characters are found at the beginning
  *  of the string; otherwise, `false`.
- * @example
- * var strinStartsWith = require('string-starts-with-x');
- *
- * var str = 'To be, or not to be, that is the question.';
- *
- * startsWith(str, 'To be'); // true
- * startsWith(str, 'not to be'); // false
- * startsWith(str, 'not to be', 10); // true
  */
 export default $startsWith;
