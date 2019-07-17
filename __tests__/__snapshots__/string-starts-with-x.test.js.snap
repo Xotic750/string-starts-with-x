@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`startsWith should not allow a regex 1`] = `"First argument to String.prototype.startsWith must not be a regular expression"`;
+
+exports[`startsWith should not allow a regex 2`] = `"First argument to String.prototype.startsWith must not be a regular expression"`;
+
+exports[`startsWith should throw when target is null or undefined 1`] = `"String.prototype.startsWith called on null or undefined"`;
+
+exports[`startsWith should throw when target is null or undefined 2`] = `"String.prototype.startsWith called on null or undefined"`;
+
+exports[`startsWith should throw when target is null or undefined 3`] = `"String.prototype.startsWith called on null or undefined"`;

@@ -3,14 +3,12 @@ import toInteger from 'to-integer-x';
 import requireObjectCoercible from 'require-object-coercible-x';
 import toStr from 'to-string-x';
 import isRegExp from 'is-regexp-x';
-
-const sw = ''.startsWith;
-const nativeStartsWith = typeof sw === 'function' && sw;
-
-let isWorking;
+var sw = ''.startsWith;
+var nativeStartsWith = typeof sw === 'function' && sw;
+var isWorking;
 
 if (nativeStartsWith) {
-  let res = attempt.call('/a/', nativeStartsWith, /a/);
+  var res = attempt.call('/a/', nativeStartsWith, /a/);
   isWorking = res.threw;
 
   if (isWorking) {
@@ -28,7 +26,6 @@ if (nativeStartsWith) {
     isWorking = res.threw;
   }
 }
-
 /**
  * This method determines whether a string begins with the characters of a
  * specified string, returning true or false as appropriate.
@@ -43,11 +40,13 @@ if (nativeStartsWith) {
  * @returns {boolean} `true` if the given characters are found at the beginning
  *  of the string; otherwise, `false`.
  */
-let $startsWith;
+
+
+var $startsWith;
 
 if (isWorking) {
   $startsWith = function startsWith(string, searchString) {
-    const args = [searchString];
+    var args = [searchString];
 
     if (arguments.length > 2) {
       /* eslint-disable-next-line prefer-rest-params,prefer-destructuring */
@@ -59,21 +58,22 @@ if (isWorking) {
 } else {
   // Firefox (< 37?) and IE 11 TP have a noncompliant startsWith implementation
   $startsWith = function startsWith(string, searchString) {
-    const str = toStr(requireObjectCoercible(string));
+    var str = toStr(requireObjectCoercible(string));
 
     if (isRegExp(searchString)) {
       throw new TypeError('Cannot call method "startsWith" with a regex');
     }
 
-    const searchStr = toStr(searchString);
+    var searchStr = toStr(searchString);
     /* eslint-disable-next-line prefer-rest-params */
-    const position = arguments.length > 2 ? toInteger(arguments[2]) : 0;
-    const start = position > 0 ? position : 0;
 
+    var position = arguments.length > 2 ? toInteger(arguments[2]) : 0;
+    var start = position > 0 ? position : 0;
     return str.slice(start, start + searchStr.length) === searchStr;
   };
 }
 
-const ssw = $startsWith;
-
+var ssw = $startsWith;
 export default ssw;
+
+//# sourceMappingURL=string-starts-with-x.esm.js.map

@@ -21,38 +21,36 @@
 <a name="module_string-starts-with-x"></a>
 
 ## string-starts-with-x
+
 Determines whether a string begins with the characters of a specified string.
 
-**Version**: 1.1.0  
-**Author**: Xotic750 <Xotic750@gmail.com>  
-**License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
-**Copyright**: Xotic750  
 <a name="exp_module_string-starts-with-x--module.exports"></a>
 
 ### `module.exports` ⇒ <code>boolean</code> ⏏
+
 This method determines whether a string begins with the characters of a
 specified string, returning true or false as appropriate.
 
 **Kind**: Exported member  
 **Returns**: <code>boolean</code> - `true` if the given characters are found at the beginning
- of the string; otherwise, `false`.  
+of the string; otherwise, `false`.  
 **Throws**:
 
 - <code>TypeError</code> If string is null or undefined.
 - <code>TypeError</code> If searchString is a RegExp.
 
+| Param        | Type                | Description                                                                              |
+| ------------ | ------------------- | ---------------------------------------------------------------------------------------- |
+| string       | <code>string</code> | The string to be search.                                                                 |
+| searchString | <code>string</code> | The characters to be searched for at the start of this string.                           |
+| [position]   | <code>number</code> | The position in this string at which to begin searching for searchString; defaults to 0. |
 
-| Param | Type | Description |
-| --- | --- | --- |
-| string | <code>string</code> | The string to be search. |
-| searchString | <code>string</code> | The characters to be searched for at the start  of this string. |
-| [position] | <code>number</code> | The position in this string at which to begin  searching for searchString; defaults to 0. |
+**Example**
 
-**Example**  
 ```js
-var strinStartsWith = require('string-starts-with-x');
+import strinStartsWith from 'string-starts-with-x';
 
-var str = 'To be, or not to be, that is the question.';
+const str = 'To be, or not to be, that is the question.';
 
 startsWith(str, 'To be'); // true
 startsWith(str, 'not to be'); // false

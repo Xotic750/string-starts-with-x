@@ -1,4 +1,4 @@
-let startsWith;
+import startsWith from '../src/string-starts-with-x';
 
 describe('startsWith', function() {
   it('is a function', function() {
@@ -7,7 +7,7 @@ describe('startsWith', function() {
   });
 
   it('should throw when target is null or undefined', function() {
-    expect.assertions(1);
+    expect.assertions(3);
     expect(function() {
       startsWith();
     }).toThrowErrorMatchingSnapshot();
@@ -22,7 +22,7 @@ describe('startsWith', function() {
   });
 
   it('should be truthy on correct results', function() {
-    expect.assertions(1);
+    expect.assertions(25);
     expect(startsWith('test', 'te')).toBe(true);
     expect(startsWith('test', 'st')).toBe(false);
     expect(startsWith('', '/')).toBe(false);
@@ -52,13 +52,13 @@ describe('startsWith', function() {
   });
 
   it('should handle large positions', function() {
-    expect.assertions(1);
+    expect.assertions(2);
     expect(startsWith('abc', 'a', 42)).toBe(false);
     expect(startsWith('abc', 'a', Infinity)).toBe(false);
   });
 
   it('should coerce to a string', function() {
-    expect.assertions(1);
+    expect.assertions(2);
     expect(
       startsWith('abcd', {
         toString() {
@@ -77,7 +77,7 @@ describe('startsWith', function() {
   });
 
   it('should not allow a regex', function() {
-    expect.assertions(1);
+    expect.assertions(2);
     expect(function() {
       return startsWith('abcd', /abc/);
     }).toThrowErrorMatchingSnapshot();
