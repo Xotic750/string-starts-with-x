@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-17T22:05:52.718Z",
+  "date": "2019-07-18T00:37:23.202Z",
   "describe": "",
   "description": "Determines whether a string begins with the characters of a specified string.",
   "file": "string-starts-with-x.js",
   "hash": "b611784e87c4b0ac4df0",
   "license": "MIT",
-  "version": "2.0.0"
+  "version": "2.0.1"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
