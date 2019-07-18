@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-18T00:37:23.202Z",
+  "date": "2019-07-18T22:57:29.489Z",
   "describe": "",
   "description": "Determines whether a string begins with the characters of a specified string.",
   "file": "string-starts-with-x.js",
-  "hash": "b611784e87c4b0ac4df0",
+  "hash": "ae536b419ab2d58c865e",
   "license": "MIT",
-  "version": "2.0.1"
+  "version": "2.0.2"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -2084,11 +2084,11 @@ var toPropertyDescriptor = function _toPropertyDescriptor(desc) {
   var descriptor = {};
 
   if (has_own_property_x_esm(object, 'enumerable')) {
-    descriptor.enumerable = Boolean(object.enumerable);
+    descriptor.enumerable = object_define_property_x_esm_castBoolean(object.enumerable);
   }
 
   if (has_own_property_x_esm(object, 'configurable')) {
-    descriptor.configurable = Boolean(object.configurable);
+    descriptor.configurable = object_define_property_x_esm_castBoolean(object.configurable);
   }
 
   if (has_own_property_x_esm(object, 'value')) {
@@ -2096,7 +2096,7 @@ var toPropertyDescriptor = function _toPropertyDescriptor(desc) {
   }
 
   if (has_own_property_x_esm(object, 'writable')) {
-    descriptor.writable = Boolean(object.writable);
+    descriptor.writable = object_define_property_x_esm_castBoolean(object.writable);
   }
 
   if (has_own_property_x_esm(object, 'get')) {
