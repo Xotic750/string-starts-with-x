@@ -48,7 +48,7 @@ of the string; otherwise, `false`.
 **Example**
 
 ```js
-import strinStartsWith from 'string-starts-with-x';
+import startsWith from 'string-starts-with-x';
 
 const str = 'To be, or not to be, that is the question.';
 
