@@ -1,6 +1,6 @@
 {
   "name": "string-starts-with-x",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Determines whether a string begins with the characters of a specified string.",
   "homepage": "https://github.com/Xotic750/string-starts-with-x",
   "author": {
@@ -22,6 +22,7 @@
   ],
   "module": "dist/string-starts-with-x.esm.js",
   "main": "dist/string-starts-with-x.js",
+  "jsdelivr": "dist/string-starts-with-x.min.js",
   "scripts": {
     "build:esm": "mkdirp dist && babel -s true --env-name esm src/string-starts-with-x.js -o dist/string-starts-with-x.esm.js",
     "build:base": "webpack --bail --progress --profile --colors",
@@ -49,11 +50,11 @@
     "url": "https://github.com/Xotic750/string-starts-with-x/issues"
   },
   "dependencies": {
-    "attempt-x": "^2.0.16",
-    "is-regexp-x": "^3.0.12",
-    "require-object-coercible-x": "^2.0.20",
-    "to-integer-x": "^4.0.21",
-    "to-string-x": "^2.0.28"
+    "attempt-x": "^2.0.18",
+    "is-regexp-x": "^3.0.13",
+    "require-object-coercible-x": "^2.0.22",
+    "to-integer-x": "^4.0.23",
+    "to-string-x": "^2.0.30"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -91,7 +92,7 @@
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^22.13.6",
-    "eslint-plugin-jsdoc": "^15.7.1",
+    "eslint-plugin-jsdoc": "^15.7.2",
     "eslint-plugin-json": "^1.4.0",
     "eslint-plugin-lodash": "^5.1.0",
     "eslint-plugin-no-use-extend-native": "^0.4.1",
