@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-27T22:10:15.338Z",
+  "date": "2019-07-28T13:30:18.180Z",
   "describe": "",
   "description": "Determines whether a string begins with the characters of a specified string.",
   "file": "string-starts-with-x.js",
-  "hash": "40ab9b07aafea11551d4",
+  "hash": "b3e8eb91ac9851270d40",
   "license": "MIT",
   "version": "2.0.11"
 }
@@ -1724,8 +1724,8 @@ if (nativeGOPD) {
   var getOPDWorksOnDom = doc ? object_get_own_property_descriptor_x_esm_doesGOPDWork(doc.createElement('div'), 'sentinel') : true;
 
   if (getOPDWorksOnDom) {
-    var res = attempt_x_esm(nativeGOPD, object_get_own_property_descriptor_x_esm_castObject('abc'), 1);
-    var worksWithStr = res.threw === false && res.value && res.value.value === 'b';
+    var object_get_own_property_descriptor_x_esm_res = attempt_x_esm(nativeGOPD, object_get_own_property_descriptor_x_esm_castObject('abc'), 1);
+    var worksWithStr = object_get_own_property_descriptor_x_esm_res.threw === false && object_get_own_property_descriptor_x_esm_res.value && object_get_own_property_descriptor_x_esm_res.value.value === 'b';
 
     if (worksWithStr) {
       var getOPDWorksOnObject = object_get_own_property_descriptor_x_esm_doesGOPDWork({}, 'sentinel');
@@ -2144,47 +2144,33 @@ var is_regexp_x_esm_isRegex = function isRegex(value) {
 
 
 
+
 var ERR_MSG = 'Cannot call method "startsWith" with a regex';
 var sw = ERR_MSG.startsWith;
 var nativeStartsWith = typeof sw === 'function' && sw;
-var isWorking;
 
-if (nativeStartsWith) {
-  var string_starts_with_x_esm_res = attempt_x_esm.call('/a/', nativeStartsWith, /a/);
-  isWorking = string_starts_with_x_esm_res.threw;
+var string_starts_with_x_esm_test1 = function test1() {
+  return attempt_x_esm.call('/a/', nativeStartsWith, /a/).threw;
+};
 
-  if (isWorking) {
-    string_starts_with_x_esm_res = attempt_x_esm.call('abc', nativeStartsWith, 'a', 1 / 0);
-    isWorking = string_starts_with_x_esm_res.threw === false && string_starts_with_x_esm_res.value === false;
-  }
+var string_starts_with_x_esm_test2 = function test2() {
+  var res = attempt_x_esm.call('abc', nativeStartsWith, 'a', 1 / 0);
+  return res.threw === false && res.value === false;
+};
 
-  if (isWorking) {
-    string_starts_with_x_esm_res = attempt_x_esm.call(123, nativeStartsWith, '1');
-    isWorking = string_starts_with_x_esm_res.threw === false && string_starts_with_x_esm_res.value === true;
-  }
+var string_starts_with_x_esm_test3 = function test3() {
+  var res = attempt_x_esm.call(123, nativeStartsWith, '1');
+  return res.threw === false && res.value === true;
+};
 
-  if (isWorking) {
-    string_starts_with_x_esm_res = attempt_x_esm.call(null, nativeStartsWith, 'n');
-    isWorking = string_starts_with_x_esm_res.threw;
-  }
-}
-/**
- * This method determines whether a string begins with the characters of a
- * specified string, returning true or false as appropriate.
- *
- * @param {string} string - The string to be search.
- * @throws {TypeError} If string is null or undefined.
- * @param {string} searchString - The characters to be searched for at the start of this string.
- * @throws {TypeError} If searchString is a RegExp.
- * @param {number} [position] -The position in this string at which to begin searching for searchString; defaults to 0.
- * @returns {boolean} `true` if the given characters are found at the beginning of the string; otherwise, `false`.
- */
+var string_starts_with_x_esm_test4 = function test4() {
+  return attempt_x_esm.call(null, nativeStartsWith, 'n').threw;
+};
 
+var isWorking = to_boolean_x_esm(nativeStartsWith) && string_starts_with_x_esm_test1() && string_starts_with_x_esm_test2() && string_starts_with_x_esm_test3() && string_starts_with_x_esm_test4();
 
-var $startsWith;
-
-if (isWorking) {
-  $startsWith = function startsWith(string, searchString) {
+var string_starts_with_x_esm_patchedStartsWith = function patchedStartsWith() {
+  return function startsWith(string, searchString) {
     var str = require_object_coercible_x_esm(string);
 
     if (is_regexp_x_esm(searchString)) {
@@ -2200,9 +2186,11 @@ if (isWorking) {
 
     return nativeStartsWith.apply(str, args);
   };
-} else {
-  // Firefox (< 37?) and IE 11 TP have a noncompliant startsWith implementation
-  $startsWith = function startsWith(string, searchString) {
+};
+
+var string_starts_with_x_esm_implementation = function implementation() {
+  // Firefox (< 37?) and IE 11 TP have a non-compliant startsWith implementation
+  return function startsWith(string, searchString) {
     var str = to_string_x_esm(require_object_coercible_x_esm(string));
 
     if (is_regexp_x_esm(searchString)) {
@@ -2216,10 +2204,22 @@ if (isWorking) {
     var start = position > 0 ? position : 0;
     return str.slice(start, start + searchStr.length) === searchStr;
   };
-}
+};
+/**
+ * This method determines whether a string begins with the characters of a
+ * specified string, returning true or false as appropriate.
+ *
+ * @param {string} string - The string to be search.
+ * @throws {TypeError} If string is null or undefined.
+ * @param {string} searchString - The characters to be searched for at the start of this string.
+ * @throws {TypeError} If searchString is a RegExp.
+ * @param {number} [position] -The position in this string at which to begin searching for searchString; defaults to 0.
+ * @returns {boolean} `true` if the given characters are found at the beginning of the string; otherwise, `false`.
+ */
 
-var ssw = $startsWith;
-/* harmony default export */ var string_starts_with_x_esm = __webpack_exports__["default"] = (ssw);
+
+var $startsWith = isWorking ? string_starts_with_x_esm_patchedStartsWith() : string_starts_with_x_esm_implementation();
+/* harmony default export */ var string_starts_with_x_esm = __webpack_exports__["default"] = ($startsWith);
 
 
 
