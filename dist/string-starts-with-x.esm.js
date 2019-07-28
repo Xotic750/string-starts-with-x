@@ -47,7 +47,7 @@ var patchedStartsWith = function patchedStartsWith() {
   };
 };
 
-var implementation = function implementation() {
+export var implementation = function implementation() {
   // Firefox (< 37?) and IE 11 TP have a non-compliant startsWith implementation
   return function startsWith(string, searchString) {
     var str = toStr(requireObjectCoercible(string));
@@ -75,7 +75,6 @@ var implementation = function implementation() {
  * @param {number} [position] -The position in this string at which to begin searching for searchString; defaults to 0.
  * @returns {boolean} `true` if the given characters are found at the beginning of the string; otherwise, `false`.
  */
-
 
 var $startsWith = isWorking ? patchedStartsWith() : implementation();
 export default $startsWith;

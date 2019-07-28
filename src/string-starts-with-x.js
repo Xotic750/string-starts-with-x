@@ -50,7 +50,7 @@ const patchedStartsWith = function patchedStartsWith() {
   };
 };
 
-const implementation = function implementation() {
+export const implementation = function implementation() {
   // Firefox (< 37?) and IE 11 TP have a non-compliant startsWith implementation
   return function startsWith(string, searchString) {
     const str = toStr(requireObjectCoercible(string));

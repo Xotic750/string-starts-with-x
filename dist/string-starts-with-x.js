@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-28T13:30:18.180Z",
+  "date": "2019-07-28T14:13:34.274Z",
   "describe": "",
   "description": "Determines whether a string begins with the characters of a specified string.",
   "file": "string-starts-with-x.js",
-  "hash": "b3e8eb91ac9851270d40",
+  "hash": "938a06cacf5125a8116b",
   "license": "MIT",
   "version": "2.0.11"
 }
@@ -2139,6 +2139,7 @@ var is_regexp_x_esm_isRegex = function isRegex(value) {
 
 
 // CONCATENATED MODULE: ./dist/string-starts-with-x.esm.js
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation", function() { return string_starts_with_x_esm_implementation; });
 
 
 
@@ -2216,7 +2217,6 @@ var string_starts_with_x_esm_implementation = function implementation() {
  * @param {number} [position] -The position in this string at which to begin searching for searchString; defaults to 0.
  * @returns {boolean} `true` if the given characters are found at the beginning of the string; otherwise, `false`.
  */
-
 
 var $startsWith = isWorking ? string_starts_with_x_esm_patchedStartsWith() : string_starts_with_x_esm_implementation();
 /* harmony default export */ var string_starts_with_x_esm = __webpack_exports__["default"] = ($startsWith);
