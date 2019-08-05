@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-04T23:30:45.266Z",
+  "date": "2019-08-05T12:05:01.378Z",
   "describe": "",
   "description": "Determines whether a string begins with the characters of a specified string.",
   "file": "string-starts-with-x.js",
-  "hash": "50f81bc10ee9d3db7884",
+  "hash": "aa60e34272f3c9aaa217",
   "license": "MIT",
   "version": "2.0.12"
 }
@@ -2180,7 +2180,7 @@ var is_regexp_x_esm_isRegex = function isRegex(value) {
 
 
 // CONCATENATED MODULE: ./dist/string-starts-with-x.esm.js
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation", function() { return string_starts_with_x_esm_implementation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation", function() { return implementation; });
 
 
 
@@ -2211,41 +2211,37 @@ var string_starts_with_x_esm_test4 = function test4() {
 
 var isWorking = to_boolean_x_esm(nativeStartsWith) && string_starts_with_x_esm_test1() && string_starts_with_x_esm_test2() && string_starts_with_x_esm_test3() && string_starts_with_x_esm_test4();
 
-var string_starts_with_x_esm_patchedStartsWith = function patchedStartsWith() {
-  return function startsWith(string, searchString) {
-    var str = require_object_coercible_x_esm(string);
+var patchedStartsWith = function startsWith(string, searchString) {
+  var str = require_object_coercible_x_esm(string);
 
-    if (is_regexp_x_esm(searchString)) {
-      throw new TypeError(ERR_MSG);
-    }
+  if (is_regexp_x_esm(searchString)) {
+    throw new TypeError(ERR_MSG);
+  }
 
-    var args = [searchString];
+  var args = [searchString];
 
-    if (arguments.length > 2) {
-      /* eslint-disable-next-line prefer-rest-params,prefer-destructuring */
-      args[1] = arguments[2];
-    }
+  if (arguments.length > 2) {
+    /* eslint-disable-next-line prefer-rest-params,prefer-destructuring */
+    args[1] = arguments[2];
+  }
 
-    return nativeStartsWith.apply(str, args);
-  };
-};
+  return nativeStartsWith.apply(str, args);
+}; // Firefox (< 37?) and IE 11 TP have a non-compliant startsWith implementation
 
-var string_starts_with_x_esm_implementation = function implementation() {
-  // Firefox (< 37?) and IE 11 TP have a non-compliant startsWith implementation
-  return function startsWith(string, searchString) {
-    var str = to_string_x_esm(require_object_coercible_x_esm(string));
 
-    if (is_regexp_x_esm(searchString)) {
-      throw new TypeError(ERR_MSG);
-    }
+var implementation = function startsWith(string, searchString) {
+  var str = to_string_x_esm(require_object_coercible_x_esm(string));
 
-    var searchStr = to_string_x_esm(searchString);
-    /* eslint-disable-next-line prefer-rest-params */
+  if (is_regexp_x_esm(searchString)) {
+    throw new TypeError(ERR_MSG);
+  }
 
-    var position = arguments.length > 2 ? to_integer_x_esm(arguments[2]) : 0;
-    var start = position > 0 ? position : 0;
-    return str.slice(start, start + searchStr.length) === searchStr;
-  };
+  var searchStr = to_string_x_esm(searchString);
+  /* eslint-disable-next-line prefer-rest-params */
+
+  var position = arguments.length > 2 ? to_integer_x_esm(arguments[2]) : 0;
+  var start = position > 0 ? position : 0;
+  return str.slice(start, start + searchStr.length) === searchStr;
 };
 /**
  * This method determines whether a string begins with the characters of a
@@ -2259,7 +2255,7 @@ var string_starts_with_x_esm_implementation = function implementation() {
  * @returns {boolean} `true` if the given characters are found at the beginning of the string; otherwise, `false`.
  */
 
-var $startsWith = isWorking ? string_starts_with_x_esm_patchedStartsWith() : string_starts_with_x_esm_implementation();
+var $startsWith = isWorking ? patchedStartsWith : implementation;
 /* harmony default export */ var string_starts_with_x_esm = __webpack_exports__["default"] = ($startsWith);
 
 

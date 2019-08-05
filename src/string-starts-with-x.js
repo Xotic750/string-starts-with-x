@@ -31,41 +31,37 @@ const test4 = function test4() {
 
 const isWorking = toBoolean(nativeStartsWith) && test1() && test2() && test3() && test4();
 
-const patchedStartsWith = function patchedStartsWith() {
-  return function startsWith(string, searchString) {
-    const str = requireObjectCoercible(string);
+const patchedStartsWith = function startsWith(string, searchString) {
+  const str = requireObjectCoercible(string);
 
-    if (isRegExp(searchString)) {
-      throw new TypeError(ERR_MSG);
-    }
+  if (isRegExp(searchString)) {
+    throw new TypeError(ERR_MSG);
+  }
 
-    const args = [searchString];
+  const args = [searchString];
 
-    if (arguments.length > 2) {
-      /* eslint-disable-next-line prefer-rest-params,prefer-destructuring */
-      args[1] = arguments[2];
-    }
+  if (arguments.length > 2) {
+    /* eslint-disable-next-line prefer-rest-params,prefer-destructuring */
+    args[1] = arguments[2];
+  }
 
-    return nativeStartsWith.apply(str, args);
-  };
+  return nativeStartsWith.apply(str, args);
 };
 
-export const implementation = function implementation() {
-  // Firefox (< 37?) and IE 11 TP have a non-compliant startsWith implementation
-  return function startsWith(string, searchString) {
-    const str = toStr(requireObjectCoercible(string));
+// Firefox (< 37?) and IE 11 TP have a non-compliant startsWith implementation
+export const implementation = function startsWith(string, searchString) {
+  const str = toStr(requireObjectCoercible(string));
 
-    if (isRegExp(searchString)) {
-      throw new TypeError(ERR_MSG);
-    }
+  if (isRegExp(searchString)) {
+    throw new TypeError(ERR_MSG);
+  }
 
-    const searchStr = toStr(searchString);
-    /* eslint-disable-next-line prefer-rest-params */
-    const position = arguments.length > 2 ? toInteger(arguments[2]) : 0;
-    const start = position > 0 ? position : 0;
+  const searchStr = toStr(searchString);
+  /* eslint-disable-next-line prefer-rest-params */
+  const position = arguments.length > 2 ? toInteger(arguments[2]) : 0;
+  const start = position > 0 ? position : 0;
 
-    return str.slice(start, start + searchStr.length) === searchStr;
-  };
+  return str.slice(start, start + searchStr.length) === searchStr;
 };
 
 /**
@@ -79,6 +75,6 @@ export const implementation = function implementation() {
  * @param {number} [position] -The position in this string at which to begin searching for searchString; defaults to 0.
  * @returns {boolean} `true` if the given characters are found at the beginning of the string; otherwise, `false`.
  */
-const $startsWith = isWorking ? patchedStartsWith() : implementation();
+const $startsWith = isWorking ? patchedStartsWith : implementation;
 
 export default $startsWith;

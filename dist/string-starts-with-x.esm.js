@@ -28,41 +28,37 @@ var test4 = function test4() {
 
 var isWorking = toBoolean(nativeStartsWith) && test1() && test2() && test3() && test4();
 
-var patchedStartsWith = function patchedStartsWith() {
-  return function startsWith(string, searchString) {
-    var str = requireObjectCoercible(string);
+var patchedStartsWith = function startsWith(string, searchString) {
+  var str = requireObjectCoercible(string);
 
-    if (isRegExp(searchString)) {
-      throw new TypeError(ERR_MSG);
-    }
+  if (isRegExp(searchString)) {
+    throw new TypeError(ERR_MSG);
+  }
 
-    var args = [searchString];
+  var args = [searchString];
 
-    if (arguments.length > 2) {
-      /* eslint-disable-next-line prefer-rest-params,prefer-destructuring */
-      args[1] = arguments[2];
-    }
+  if (arguments.length > 2) {
+    /* eslint-disable-next-line prefer-rest-params,prefer-destructuring */
+    args[1] = arguments[2];
+  }
 
-    return nativeStartsWith.apply(str, args);
-  };
-};
+  return nativeStartsWith.apply(str, args);
+}; // Firefox (< 37?) and IE 11 TP have a non-compliant startsWith implementation
 
-export var implementation = function implementation() {
-  // Firefox (< 37?) and IE 11 TP have a non-compliant startsWith implementation
-  return function startsWith(string, searchString) {
-    var str = toStr(requireObjectCoercible(string));
 
-    if (isRegExp(searchString)) {
-      throw new TypeError(ERR_MSG);
-    }
+export var implementation = function startsWith(string, searchString) {
+  var str = toStr(requireObjectCoercible(string));
 
-    var searchStr = toStr(searchString);
-    /* eslint-disable-next-line prefer-rest-params */
+  if (isRegExp(searchString)) {
+    throw new TypeError(ERR_MSG);
+  }
 
-    var position = arguments.length > 2 ? toInteger(arguments[2]) : 0;
-    var start = position > 0 ? position : 0;
-    return str.slice(start, start + searchStr.length) === searchStr;
-  };
+  var searchStr = toStr(searchString);
+  /* eslint-disable-next-line prefer-rest-params */
+
+  var position = arguments.length > 2 ? toInteger(arguments[2]) : 0;
+  var start = position > 0 ? position : 0;
+  return str.slice(start, start + searchStr.length) === searchStr;
 };
 /**
  * This method determines whether a string begins with the characters of a
@@ -76,7 +72,7 @@ export var implementation = function implementation() {
  * @returns {boolean} `true` if the given characters are found at the beginning of the string; otherwise, `false`.
  */
 
-var $startsWith = isWorking ? patchedStartsWith() : implementation();
+var $startsWith = isWorking ? patchedStartsWith : implementation;
 export default $startsWith;
 
 //# sourceMappingURL=string-starts-with-x.esm.js.map
