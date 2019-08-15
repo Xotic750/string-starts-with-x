@@ -2,7 +2,7 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-14T16:01:05.542Z",
+  "date": "2019-08-15T20:48:05.475Z",
   "describe": "",
   "description": "Determines whether a string begins with the characters of a specified string.",
   "file": "string-starts-with-x.js",
