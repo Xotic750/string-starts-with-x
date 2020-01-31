@@ -84,6 +84,7 @@ import $startsWith, {implementation} from '../src/string-starts-with-x';
       }).toThrowErrorMatchingSnapshot();
 
       expect(function() {
+        /* eslint-disable-next-line prefer-regex-literals */
         return startsWith('abcd', new RegExp('abc'));
       }).toThrowErrorMatchingSnapshot();
     });
